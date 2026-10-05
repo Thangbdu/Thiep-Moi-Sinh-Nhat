@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Sinh Nhật Thắng - 06/10/2026</title>
+    <meta name="description"
+        content="Trân trọng kính mời bạn đến dự buổi tiệc mừng sinh nhật của Thắng vào ngày 06/10/2026 tại Trạm Nướng Bất Ổn.">
+
+    <!-- Favicon -->
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+
+    <!-- Open Graph for sharing -->
+    <meta property="og:title" content="Thiệp Mời Sinh Nhật Thắng 🎂">
+    <meta property="og:description" content="06/10/2026 | Trạm Nướng Bất Ổn - 52 Đường Phạm Ngũ Lão, TP. Thủ Dầu Một">
+    <meta property="og:image" content="images/hero.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Canvas Confetti library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Background Canvas for Particles -->
+    <canvas id="bgCanvas"></canvas>
+
+    <!-- Music Player Toggle Floating Button -->
+    <div class="music-player-btn" id="musicBtn" title="Bật/Tắt nhạc nền">
+        <i class="fa-solid fa-music"></i>
+        <div class="music-wave" id="musicWave">
+            <span></span><span></span><span></span><span></span>
+        </div>
+    </div>
+
+    <!-- ENVELOPE / OPENING SCREEN -->
+    <div class="envelope-overlay" id="envelopeOverlay">
+        <div class="envelope-card">
+            <div class="envelope-seal">
+                <i class="fa-solid fa-cake-candles"></i>
+            </div>
+            <p class="envelope-subtitle">BIRTHDAY INVITATION</p>
+            <h1 class="envelope-title">THẮNG</h1>
+            <p class="envelope-date">
+                <i class="fa-regular fa-calendar-check text-gold"></i> 06/10/2026 &nbsp;•&nbsp; <i
+                    class="fa-regular fa-clock text-gold"></i> 20:00 (8h00 Tối)
+            </p>
+
+            <button class="open-card-btn" id="openBtn">
+                <span>Mở Thiệp Mời</span>
+                <i class="fa-solid fa-envelope-open-text"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container hidden" id="mainApp">
+        <!-- NAVIGATION BAR -->
+        <nav class="navbar">
+            <div class="nav-logo">THẮNG'S BIRTHDAY</div>
+            <ul class="nav-links">
+                <li><a href="#hero">Trang chủ</a></li>
+                <li><a href="#countdown">Đếm ngược</a></li>
+                <li><a href="#location">Địa điểm</a></li>
+                <li><a href="#rsvp">Xác nhận</a></li>
+                <li><a href="#wishes">Lời chúc</a></li>
+            </ul>
+        </nav>
+
+        <!-- HERO SECTION -->
+        <header class="hero" id="hero">
+            <div class="hero-badge">
+                <i class="fa-solid fa-crown"></i> YOU'RE INVITED!
+            </div>
+            <h2 class="hero-subtext">Trân trọng kính mời bạn đến dự buổi tiệc mừng sinh nhật của</h2>
+            <h1 class="hero-name">THẮNG</h1>
+
+            <div class="hero-date-box">
+                <i class="fa-regular fa-calendar-days text-gold"></i>
+                <span class="hero-date-text">06/10/2026</span>
+                <span class="hero-date-divider">•</span>
+                <i class="fa-regular fa-clock text-gold"></i>
+                <span class="hero-time-text">20:00</span>
+            </div>
+
+            <div class="hero-location-preview">
+                <i class="fa-solid fa-fire-burner"></i> Tại <strong>Trạm Nướng Bất Ổn</strong> - TP. Thủ Dầu Một
+            </div>
+
+            <div class="hero-actions">
+                <a href="#rsvp" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Xác Nhận Tham Dự</a>
+                <a href="https://maps.app.goo.gl/KVuGYV3hefqYFfv59?g_st=iz" target="_blank" rel="noopener"
+                    class="btn btn-secondary">
+                    <i class="fa-solid fa-map-location-dot"></i> Đường Đến Quán
+                </a>
+            </div>
+
+            <div class="scroll-down-indicator">
+                <span>Cuộn xuống xem chi tiết</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </header>
+
+        <!-- COUNTDOWN SECTION -->
+        <section class="section countdown-section" id="countdown">
+            <div class="section-title-wrap">
+                <span class="sub-title">COUNTDOWN TO THE PARTY</span>
+                <h2 class="section-title">Thời Gian Còn Lại</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="countdown-grid" id="countdownClock">
+                <div class="time-card">
+                    <span class="number" id="cdDays">00</span>
+                    <span class="label">Ngày</span>
+                </div>
+                <div class="time-card">
+                    <span class="number" id="cdHours">00</span>
+                    <span class="label">Giờ</span>
+                </div>
+                <div class="time-card">
+                    <span class="number" id="cdMinutes">00</span>
+                    <span class="label">Phút</span>
+                </div>
+                <div class="time-card">
+                    <span class="number" id="cdSeconds">00</span>
+                    <span class="label">Giây</span>
+                </div>
+            </div>
+
+            <p class="countdown-note">Sự hiện diện của bạn là niềm vui lớn nhất dành cho Thắng! 🎉</p>
+        </section>
+
+        <!-- LOCATION & VENUE SECTION -->
+        <section class="section location-section" id="location">
+            <div class="section-title-wrap">
+                <span class="sub-title">PARTY VENUE</span>
+                <h2 class="section-title">Địa Điểm Tổ Chức</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="venue-card-wrapper">
+                <div class="venue-img-box">
+                    <img src="images/tram_nuong.jpg" onerror="this.onerror=null; this.src='images/tram_nuong_real.jpg';"
+                        alt="Trạm Nướng Bất Ổn" loading="eager">
+                    <div class="venue-tag">
+                        <i class="fa-solid fa-fire"></i> Trạm Nướng Bất Ổn
+                    </div>
+                </div>
+
+                <div class="venue-info">
+                    <h3 class="venue-name">Trạm Nướng Bất Ổn</h3>
+                    <p class="venue-address">
+                        <i class="fa-solid fa-location-dot text-gold"></i>
+                        <span><strong>Địa chỉ:</strong> 52 Đường Phạm Ngũ Lão, Phường Hiệp Thành, TP. Thủ Dầu Một, Bình
+                            Dương</span>
+                    </p>
+                    <p class="venue-desc">
+                        Không gian tiệc nướng ngoài trời chill chill, lung linh ánh đèn cùng đồ ăn ngon và thức uống mát
+                        lạnh. Hứa hẹn sẽ mang đến cho bạn một buổi tối kỷ niệm cực kỳ vui vẻ và quẩy hết mình!
+                    </p>
+
+                    <div class="venue-btns">
+                        <a href="https://maps.app.goo.gl/KVuGYV3hefqYFfv59?g_st=iz" target="_blank" rel="noopener"
+                            class="btn btn-gold">
+                            <i class="fa-solid fa-location-arrow"></i> Mở Google Maps
+                        </a>
+                        <button class="btn btn-outline" id="copyAddressBtn">
+                            <i class="fa-regular fa-copy"></i> Sao Chép Địa Chỉ
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP FORM SECTION -->
+        <section class="section rsvp-section" id="rsvp">
+            <div class="section-title-wrap">
+                <span class="sub-title">RSVP</span>
+                <h2 class="section-title">Xác Nhận Tham Dự</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="rsvp-container glass-card">
+                <p class="rsvp-subtext">Vui lòng phản hồi sớm để Thắng chuẩn bị đón tiếp chu đáo nhất nhé!</p>
+
+                <form id="rsvpForm" class="rsvp-form">
+                    <div class="form-group">
+                        <label for="guestName"><i class="fa-solid fa-user"></i> Họ và Tên của bạn *</label>
+                        <input type="text" id="guestName" placeholder="Ví dụ: Nguyễn Văn A" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guestCount"><i class="fa-solid fa-users"></i> Bạn đi cùng bao nhiêu người?</label>
+                        <select id="guestCount">
+                            <option value="1 người (Đi 1 mình)">1 người (Đi 1 mình)</option>
+                            <option value="2 người (+1 bạn đồng hành)">2 người (+1 bạn đồng hành)</option>
+                            <option value="Đi cùng nhóm bạn">Đi cùng nhóm bạn</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-circle-check"></i> Bạn có thể đến dự không? *</label>
+                        <div class="radio-options">
+                            <label class="radio-card">
+                                <input type="radio" name="rsvpStatus" value="Chắc chắn tham gia" checked>
+                                <span class="radio-box">
+                                    <i class="fa-solid fa-heart text-gold"></i>
+                                    <strong>Chắc chắn tham gia</strong>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="rsvpStatus" value="Có thể tham gia">
+                                <span class="radio-box">
+                                    <i class="fa-solid fa-question-circle"></i>
+                                    <strong>Có thể tham gia</strong>
+                                </span>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="rsvpStatus" value="Rất tiếc vắng mặt">
+                                <span class="radio-box">
+                                    <i class="fa-solid fa-face-frown"></i>
+                                    <strong>Rất tiếc vắng mặt</strong>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-full" style="margin-top: 10px;">
+                        <i class="fa-solid fa-paper-plane"></i> Gửi Xác Nhận
+                    </button>
+                </form>
+
+                <div class="rsvp-feed-title"><i class="fa-solid fa-clipboard-user text-gold"></i> Danh Sách Bạn Bè Đã
+                    Xác Nhận</div>
+                <div class="rsvp-feed" id="rsvpFeed">
+                    <!-- Real-time confirmed RSVPs loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- WISH WALL SECTION -->
+        <section class="section wishes-section" id="wishes">
+            <div class="section-title-wrap">
+                <span class="sub-title">GUEST BOOK</span>
+                <h2 class="section-title">Sổ Lời Chúc Sinh Nhật</h2>
+                <div class="title-line"></div>
+            </div>
+
+            <div class="wishes-box glass-card">
+                <form id="wishForm" class="wish-form">
+                    <div class="wish-input-row">
+                        <input type="text" id="wishName" placeholder="Tên của bạn..." required>
+                        <button type="submit" class="btn btn-gold">
+                            <i class="fa-solid fa-heart"></i> Gửi Lời Chúc
+                        </button>
+                    </div>
+                    <textarea id="wishText" rows="3"
+                        placeholder="Viết lời chúc mừng sinh nhật ngọt ngào/hài hước gửi đến Thắng tại đây..."
+                        required></textarea>
+                </form>
+
+                <div class="wishes-feed" id="wishesFeed">
+                    <!-- Dynamic wishes loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-icon">
+                <i class="fa-solid fa-champagne-glasses"></i>
+            </div>
+            <h3>CẢM ƠN BẠN ĐÃ LÀ MỘT PHẦN KỶ NIỆM CỦA THẮNG!</h3>
+            <p>Hẹn gặp lại bạn tại <strong>Trạm Nướng Bất Ổn</strong> vào lúc 20:00 (8h00 Tối) - 06/10/2026 nhé!</p>
+            <div class="footer-copyright">
+                Designed with ❤️ for Thắng's Birthday Celebration • 2026
+            </div>
+        </footer>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast hidden" id="toast">
+        <i class="fa-solid fa-circle-check text-gold"></i>
+        <span id="toastMsg">Thông báo thành công!</span>
+    </div>
+
+    <!-- THANK YOU OVERLAY / NEW SCREEN -->
+    <div class="thankyou-overlay hidden" id="thankYouOverlay">
+        <div class="thankyou-card glass-card">
+            <div class="thankyou-icon">
+                <i class="fa-solid fa-heart-circle-check"></i>
+            </div>
+            <h2 class="thankyou-title">CẢM ƠN BẠN! </h2>
+            <p class="thankyou-msg">
+                Mình sẽ rất vui và hạnh phúc khi bạn đến tham dự tiệc sinh nhật của mình! <i class="fa-solid fa-heart"
+                    style="color: #ff4d6d;"></i><i class="fa-solid fa-heart" style="color: #ff4d6d;"></i>
+            </p>
+
+            <div class="thankyou-info-box">
+                <p><i class="fa-regular fa-calendar-check text-gold"></i> <strong>Thời gian:</strong> 20:00 (8h00 Tối) -
+                    Ngày 06/10/2026</p>
+                <p><i class="fa-solid fa-location-dot text-gold"></i> <strong>Địa điểm:</strong> Trạm Nướng Bất Ổn</p>
+            </div>
+
+            <div class="thankyou-actions">
+                <a href="https://maps.app.goo.gl/KVuGYV3hefqYFfv59?g_st=iz" target="_blank" rel="noopener"
+                    class="btn btn-gold">
+                    <i class="fa-solid fa-location-arrow"></i> Xem Google Maps
+                </a>
+                <button class="btn btn-outline" id="closeThankYouBtn">
+                    <i class="fa-solid fa-house"></i> Quay Lại Trang Thiệp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
